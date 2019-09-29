@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MultiThreading.Task6.Continuation": {
+      "commandName": "Project",
+      "commandLineArgs": "c"
+    }
+  }
+}
