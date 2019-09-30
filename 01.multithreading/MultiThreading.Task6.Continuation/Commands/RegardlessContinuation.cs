@@ -10,10 +10,10 @@ namespace MultiThreading.Task6.Continuation.Commands
         {
             var mainTask = Task.Run(TaskActions.MainTaskAction);
 
-            mainTask
+            var child = mainTask
                 .ContinueWith(_ => TaskActions.ContinuationTaskAction());
 
-            mainTask.GetAwaiter().GetResult();
+            child.GetAwaiter().GetResult();
 
             return 0;
         }
