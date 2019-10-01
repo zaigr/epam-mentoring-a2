@@ -4,32 +4,32 @@
  * “Task #0 – {iteration number}”.
  */
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MultiThreading.Task1._100Tasks
 {
     class Program
     {
-        private const int TaskAmount = 100;
-        private const int MaxIterationsCount = 1000;
-
         private static object _lock = new object();
 
         static void Main(string[] args)
         {
-            var tasks = new Task[TaskAmount];
-            for (int taskIndex = 0; taskIndex < TaskAmount; taskIndex++)
-            {
-                var taskIndexCopy = taskIndex;
-                tasks[taskIndex] = Task.Run(() => TaskAction(taskIndexCopy));
-            }
+            var taskIndex = 0;
+            var tasks = Task.Factory.StartNewTasks(
+                () =>
+                {
+                    Interlocked.Increment(ref taskIndex);
+                    TaskAction(taskIndex);
+                },
+                numberOfTasks: 100);
 
             Task.WaitAll(tasks);
         }
 
         static void TaskAction(int taskNumber)
         {
-            for (int iteration = 1; iteration <= MaxIterationsCount; iteration++)
+            for (int iteration = 1; iteration <= 1000; iteration++)
             {
                 lock (_lock)
                 {

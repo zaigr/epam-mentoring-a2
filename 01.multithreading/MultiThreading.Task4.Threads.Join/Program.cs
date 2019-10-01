@@ -9,19 +9,18 @@
  * - b) ThreadPool class for this task and Semaphore for waiting threads.
  */
 
+using MultiThreading.Task4.Threads.Join.Runner;
+
 namespace MultiThreading.Task4.Threads.Join
 {
     public static class Program
     {
         static void Main(string[] args)
         {
-            var threadsCount = 10;
+            ParallelRunnerBase runner = new ThreadPoolRunner(runsCount: 10);
+            // ParallelRunnerBase runner = new ThreadRunner(runsCount: 10);
 
-            // StartAndJoin.StartThreadsAndJoin(threadsCount);
-
-            QueueAndWait.QueueTasksAndWait(threadsCount);
-
-            // QueueAndSignal.Start(threadsCount);
+            runner.Run();
         }
     }
 }
