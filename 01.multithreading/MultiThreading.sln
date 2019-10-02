@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TPL", "TPL", "{CC1682BB-8BA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TPL", "TPL", "{0F5DB3DB-CC09-4839-AD50-46561E3F485B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThreading.Task3.MatrixMultiplier.Benchmark", "MultiThreading.Task3.MatrixMultiplier.Benchmark\MultiThreading.Task3.MatrixMultiplier.Benchmark.csproj", "{92A9278F-B7BD-499F-B833-F907181F0F82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{3C9627BE-0041-493D-B2CA-C8CD6B4BB3F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C9627BE-0041-493D-B2CA-C8CD6B4BB3F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C9627BE-0041-493D-B2CA-C8CD6B4BB3F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92A9278F-B7BD-499F-B833-F907181F0F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92A9278F-B7BD-499F-B833-F907181F0F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92A9278F-B7BD-499F-B833-F907181F0F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92A9278F-B7BD-499F-B833-F907181F0F82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{4FCFBC77-1AD5-4C11-90B1-E65963251176} = {634413B6-17DB-41F5-89B6-8BC58E636D37}
 		{CC1682BB-8BA0-4A42-B941-90FE0D30F32B} = {634413B6-17DB-41F5-89B6-8BC58E636D37}
 		{0F5DB3DB-CC09-4839-AD50-46561E3F485B} = {7CE9BB6F-A9A0-46CE-9C07-749E1705641F}
+		{92A9278F-B7BD-499F-B833-F907181F0F82} = {0F5DB3DB-CC09-4839-AD50-46561E3F485B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C4B3ECA2-D9D4-486F-B3E2-40B614E3DBBB}

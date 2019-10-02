@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers;
 using System.Text;
 
 namespace MultiThreading.Task3.MatrixMultiplier.Matrices
@@ -16,13 +17,18 @@ namespace MultiThreading.Task3.MatrixMultiplier.Matrices
 
         #region public properties
 
-        public long RowCount { get; }
+        public int RowCount { get; }
 
-        public long ColCount { get; }
+        public int ColCount { get; }
 
         #endregion
 
-        public Matrix(long rows, long cols, bool randomInit = false)
+        public Matrix(long[,] matrix)
+        {
+            _matrix = matrix;
+        }
+
+        public Matrix(int rows, int cols, bool randomInit = false)
         {
             if (rows < 1 || cols < 1)
             {
@@ -53,19 +59,41 @@ namespace MultiThreading.Task3.MatrixMultiplier.Matrices
 
         #region public methods
 
-        public void SetElement(long row, long col, long value)
+        public void SetElement(int row, int col, long value)
         {
             _matrix[row, col] = value;
         }
 
-        public long GetElement(long row, long col)
+        public long GetElement(int row, int col)
         {
             return _matrix[row, col];
         }
 
+        public long[] GetRow(int rowIndex)
+        {
+            var row = ArrayPool<long>.Shared.Rent(ColCount);
+            for (long colIndex = 0; colIndex < ColCount; colIndex++)
+            {
+                row[colIndex] = _matrix[rowIndex, colIndex];
+            }
+
+            return row;
+        }
+
+        public long[] GetColumn(int colIndex)
+        {
+            var column = ArrayPool<long>.Shared.Rent(RowCount);
+            for (long rowIndex = 0; rowIndex < ColCount; rowIndex++)
+            {
+                column[rowIndex] = _matrix[rowIndex, colIndex];
+            }
+
+            return column;
+        }
+
         public void Print()
         {
-            for (long r = 0; r < RowCount; r++)
+            for (var r = 0; r < RowCount; r++)
             {
                 if (r >= MaxPrintElements)
                 {
@@ -74,7 +102,7 @@ namespace MultiThreading.Task3.MatrixMultiplier.Matrices
                 }
 
                 var sb = new StringBuilder();
-                for (long c = 0; c < ColCount; c++)
+                for (var c = 0; c < ColCount; c++)
                 {
                     if (c >= MaxPrintElements)
                     {

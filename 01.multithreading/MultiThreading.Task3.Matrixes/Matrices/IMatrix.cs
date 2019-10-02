@@ -4,17 +4,21 @@
     {
         #region properties
 
-        long RowCount { get; }
+        int RowCount { get; }
 
-        long ColCount { get; }
+        int ColCount { get; }
 
         #endregion
 
         #region methods
 
-        void SetElement(long row, long col, long value);
+        void SetElement(int row, int col, long value);
 
-        long GetElement(long row, long col);
+        long GetElement(int row, int col);
+
+        long[] GetRow(int rowIndex);
+
+        long[] GetColumn(int index);
 
         void Print();
 
