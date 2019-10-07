@@ -12,14 +12,12 @@ namespace MultiThreading.Task3.MatrixMultiplier.Tests
         public void MultiplyMatrix3On3Test()
         {
             TestMatrix3On3(new MatricesMultiplier());
-            TestMatrix3On3(new MatricesMultiplierParallel());
         }
 
         [TestMethod]
-        public void ParallelEfficiencyTest()
+        public void MultiplyMatrix3On3InParallelTest()
         {
-            // todo: implement a test method to check the size of the matrix which makes parallel multiplication more effective than
-            // todo: the regular one
+            TestMatrix3On3(new MatricesMultiplierParallel());
         }
 
         #region private methods

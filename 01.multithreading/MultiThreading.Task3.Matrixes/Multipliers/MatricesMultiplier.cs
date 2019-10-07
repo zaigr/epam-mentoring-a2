@@ -2,19 +2,19 @@
 
 namespace MultiThreading.Task3.MatrixMultiplier.Multipliers
 {
-    public class MatricesMultiplier : IMatricesMultiplier
+    public class MatricesMultiplier : MatricesMultiplierBase
     {
-        public IMatrix Multiply(IMatrix m1, IMatrix m2)
+        protected override IMatrix GetProduct(IMatrix left, IMatrix right)
         {
-            var resultMatrix = new Matrix(m1.RowCount, m2.ColCount);
-            for (long i = 0; i < m1.RowCount; i++)
+            var resultMatrix = new Matrix(left.RowCount, right.ColCount);
+            for (var i = 0; i < left.RowCount; i++)
             {
-                for (byte j = 0; j < m2.ColCount; j++)
+                for (byte j = 0; j < right.ColCount; j++)
                 {
                     long sum = 0;
-                    for (byte k = 0; k < m1.ColCount; k++)
+                    for (byte k = 0; k < left.ColCount; k++)
                     {
-                        sum += m1.GetElement(i, k) * m2.GetElement(k, j);
+                        sum += left.GetElement(i, k) * right.GetElement(k, j);
                     }
 
                     resultMatrix.SetElement(i, j, sum);

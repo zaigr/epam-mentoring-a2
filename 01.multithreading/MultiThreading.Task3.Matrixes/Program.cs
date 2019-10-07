@@ -16,28 +16,29 @@ namespace MultiThreading.Task3.MatrixMultiplier
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("3.	Write a program, which multiplies two matrices and uses class Parallel. ");
-            Console.WriteLine();
+            var matrixSize = 10;
 
-            const byte matrixSize = 7; // todo: use any number you like or enter from console
-            CreateAndProcessMatrices(matrixSize);
-            Console.ReadLine();
-        }
+            var firstMatrix = new Matrix(matrixSize, matrixSize * 2);
+            var secondMatrix = new Matrix(matrixSize, matrixSize * 2);
 
-        private static void CreateAndProcessMatrices(byte sizeOfMatrix)
-        {
             Console.WriteLine("Multiplying...");
-            var firstMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix);
-            var secondMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix);
-
-            IMatrix resultMatrix = new MatricesMultiplier().Multiply(firstMatrix, secondMatrix);
+            IMatrix resultMatrix = Multiply(firstMatrix, secondMatrix);
 
             Console.WriteLine("firstMatrix:");
             firstMatrix.Print();
+
             Console.WriteLine("secondMatrix:");
             secondMatrix.Print();
+
             Console.WriteLine("resultMatrix:");
             resultMatrix.Print();
+        }
+
+        private static IMatrix Multiply(IMatrix left, IMatrix right)
+        {
+            IMatricesMultiplier multiplier = new MatricesMultiplier();
+
+            return multiplier.Multiply(left, right);
         }
     }
 }
