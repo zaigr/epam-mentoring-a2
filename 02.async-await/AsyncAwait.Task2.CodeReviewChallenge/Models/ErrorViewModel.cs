@@ -1,6 +1,4 @@
-using System;
-
-namespace AsyncAwait.CodeReviewChallenge.Models
+namespace AsyncAwait.Task2.CodeReviewChallenge.Models
 {
     public class ErrorViewModel
     {

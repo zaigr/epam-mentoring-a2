@@ -28,6 +28,11 @@ body {
     margin: 15px;
 }
 
+ul {
+    text-align: center;
+    list-style-position: inside;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */

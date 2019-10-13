@@ -1,7 +1,7 @@
-﻿using AsyncAwait.CodeReviewChallenge.Middleware;
+﻿using AsyncAwait.Task2.CodeReviewChallenge.Middleware;
 using Microsoft.AspNetCore.Builder;
 
-namespace AsyncAwait.CodeReviewChallenge.Extensions
+namespace AsyncAwait.Task2.CodeReviewChallenge.Extensions
 {
     public static class LoggingRequestMiddlewareExtensions
     {

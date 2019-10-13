@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AsyncAwait.CodeReviewChallenge.Extensions;
+using AsyncAwait.Task2.CodeReviewChallenge.Extensions;
+using AsyncAwait.Task2.CodeReviewChallenge.Models.Support;
+using AsyncAwait.Task2.CodeReviewChallenge.Services;
+using CloudServices;
+using CloudServices.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +36,10 @@ namespace AsyncAwait.CodeReviewChallenge
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddSingleton<IStatisticService, CloudStatisticService>();
+            services.AddSingleton<ISupportService, CloudSupportService>();
+            services.AddSingleton<IPrivacyDataService, PrivacyDataService>();
+            services.AddScoped<IAssistant, ManualAssistant>();
 
             services.AddMvc();
         }
@@ -46,8 +54,6 @@ namespace AsyncAwait.CodeReviewChallenge
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
             }
 
             app.UseStatistic();

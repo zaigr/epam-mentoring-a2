@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GrandStatistics\GrandStatistics.csproj" />
+    <ProjectReference Include="..\CloudServices\CloudServices.csproj" />
   </ItemGroup>
 
 </Project>
