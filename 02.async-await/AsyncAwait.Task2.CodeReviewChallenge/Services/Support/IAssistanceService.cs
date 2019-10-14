@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace AsyncAwait.Task2.CodeReviewChallenge.Models.Support
+namespace AsyncAwait.Task2.CodeReviewChallenge.Services.Support
 {
-    public interface IAssistant
+    public interface IAssistanceService
     {
         Task<string> RequestAssistanceAsync(string requestInfo);
     }

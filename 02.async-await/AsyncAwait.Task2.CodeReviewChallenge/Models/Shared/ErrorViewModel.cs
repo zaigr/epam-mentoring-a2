@@ -1,4 +1,4 @@
-namespace AsyncAwait.Task2.CodeReviewChallenge.Models
+namespace AsyncAwait.Task2.CodeReviewChallenge.Models.Shared
 {
     public class ErrorViewModel
     {

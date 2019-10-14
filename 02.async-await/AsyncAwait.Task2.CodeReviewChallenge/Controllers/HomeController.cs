@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using AsyncAwait.Task2.CodeReviewChallenge.Models.Shared;
+using AsyncAwait.Task2.CodeReviewChallenge.Services.Privacy;
+using AsyncAwait.Task2.CodeReviewChallenge.Services.Support;
 using Microsoft.AspNetCore.Mvc;
-using AsyncAwait.Task2.CodeReviewChallenge.Models;
-using AsyncAwait.Task2.CodeReviewChallenge.Models.Support;
-using AsyncAwait.Task2.CodeReviewChallenge.Services;
 
 namespace AsyncAwait.Task2.CodeReviewChallenge.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IAssistant _assistant;
+        private readonly IAssistanceService _assistanceService;
 
         private readonly IPrivacyDataService _privacyDataService;
 
-        public HomeController(IAssistant assistant, IPrivacyDataService privacyDataService)
+        public HomeController(IAssistanceService assistanceService, IPrivacyDataService privacyDataService)
         {
-            _assistant = assistant ?? throw new ArgumentNullException(nameof(assistant));
+            _assistanceService = assistanceService ?? throw new ArgumentNullException(nameof(assistanceService));
             _privacyDataService = privacyDataService ?? throw new ArgumentNullException(nameof(privacyDataService));
         }
 
@@ -25,18 +25,20 @@ namespace AsyncAwait.Task2.CodeReviewChallenge.Controllers
             return View();
         }
 
-        public ActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
-            ViewBag.Message = _privacyDataService.GetPrivacyDataAsync().Result;
+            ViewBag.Message = await _privacyDataService.GetPrivacyDataAsync();
+
             return View();
         }
 
         public async Task<IActionResult> Help()
         {
-            ViewBag.RequestInfo = await _assistant.RequestAssistanceAsync("guest").ConfigureAwait(false);
+            ViewBag.RequestInfo = await _assistanceService.RequestAssistanceAsync(requestInfo: "guest");
+
             return View();
         }
-        
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
