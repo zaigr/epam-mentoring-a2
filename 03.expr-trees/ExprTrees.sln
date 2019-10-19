@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExprTreeVisitor", "src\ExprTreeVisitor\ExprTreeVisitor.csproj", "{3875F03B-AF5D-41DC-938B-1F1C228CEAC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExprTreeVisitor.Tests.Unit", "tests\ExprTreeVisitor.Tests.Unit\ExprTreeVisitor.Tests.Unit.csproj", "{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{35315E58-1B8D-44E7-8CDF-E47BAC004AB4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1E0EF1D6-9A2B-4FBC-9C32-FA7EE791ED3A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tasks", "tasks", "{BAF23981-D568-48C7-BCC5-B9C9DCD5D8C1}"
+	ProjectSection(SolutionItems) = preProject
+		tasks\Task for week 2 - IQueryable.docx = tasks\Task for week 2 - IQueryable.docx
+		tasks\Tasks for week 1 - ExpressionTrees.docx = tasks\Tasks for week 1 - ExpressionTrees.docx
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3875F03B-AF5D-41DC-938B-1F1C228CEAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3875F03B-AF5D-41DC-938B-1F1C228CEAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3875F03B-AF5D-41DC-938B-1F1C228CEAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3875F03B-AF5D-41DC-938B-1F1C228CEAC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3875F03B-AF5D-41DC-938B-1F1C228CEAC6} = {35315E58-1B8D-44E7-8CDF-E47BAC004AB4}
+		{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B} = {1E0EF1D6-9A2B-4FBC-9C32-FA7EE791ED3A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8979F804-8B6A-434F-A454-46BD182C6321}
+	EndGlobalSection
+EndGlobal
