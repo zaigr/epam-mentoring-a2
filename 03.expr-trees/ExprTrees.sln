@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExprTreeVisitor", "src\ExprTreeVisitor\ExprTreeVisitor.csproj", "{3875F03B-AF5D-41DC-938B-1F1C228CEAC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExprTreeVisitor.Tests.Unit", "tests\ExprTreeVisitor.Tests.Unit\ExprTreeVisitor.Tests.Unit.csproj", "{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExprTreeVisitor.Tests.Unit", "tests\ExprTreeVisitor.Tests.Unit\ExprTreeVisitor.Tests.Unit.csproj", "{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{35315E58-1B8D-44E7-8CDF-E47BAC004AB4}"
 EndProject
@@ -16,6 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tasks", "tasks", "{BAF23981
 		tasks\Task for week 2 - IQueryable.docx = tasks\Task for week 2 - IQueryable.docx
 		tasks\Tasks for week 1 - ExpressionTrees.docx = tasks\Tasks for week 1 - ExpressionTrees.docx
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper", "src\Mapper\Mapper.csproj", "{6F3E7304-D737-4B35-806B-7FB618A0B118}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper.Tests.Unit", "tests\Mapper.Tests.Unit\Mapper.Tests.Unit.csproj", "{12E48653-2D96-4266-9F7C-8026E8C76F2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,14 @@ Global
 		{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F3E7304-D737-4B35-806B-7FB618A0B118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F3E7304-D737-4B35-806B-7FB618A0B118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F3E7304-D737-4B35-806B-7FB618A0B118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F3E7304-D737-4B35-806B-7FB618A0B118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12E48653-2D96-4266-9F7C-8026E8C76F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12E48653-2D96-4266-9F7C-8026E8C76F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12E48653-2D96-4266-9F7C-8026E8C76F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12E48653-2D96-4266-9F7C-8026E8C76F2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,6 +50,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3875F03B-AF5D-41DC-938B-1F1C228CEAC6} = {35315E58-1B8D-44E7-8CDF-E47BAC004AB4}
 		{EE439D63-D2B9-4BA4-B612-7AB3A82D1C6B} = {1E0EF1D6-9A2B-4FBC-9C32-FA7EE791ED3A}
+		{6F3E7304-D737-4B35-806B-7FB618A0B118} = {35315E58-1B8D-44E7-8CDF-E47BAC004AB4}
+		{12E48653-2D96-4266-9F7C-8026E8C76F2B} = {1E0EF1D6-9A2B-4FBC-9C32-FA7EE791ED3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8979F804-8B6A-434F-A454-46BD182C6321}
