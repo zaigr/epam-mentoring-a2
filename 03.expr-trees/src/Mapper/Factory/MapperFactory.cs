@@ -1,5 +1,4 @@
 ﻿using System;
-using Mapper.Configuration.Mapping;
 using Mapper.Helpers;
 
 namespace Mapper.Factory
@@ -15,14 +14,8 @@ namespace Mapper.Factory
             }
         }
 
-        public IMapper Create<TSource, TDest>()
+        public IMapper Create()
         {
-            if (!MappingExpression<TSource, TDest>.IsConfigured)
-            {
-                throw new InvalidOperationException(
-                    $"Mapping between types {typeof(TSource)} and {typeof(TDest)} is not configured.");
-            }
-
             return new Mapper();
         }
     }

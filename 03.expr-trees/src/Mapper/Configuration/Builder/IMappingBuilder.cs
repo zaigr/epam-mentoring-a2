@@ -5,8 +5,8 @@ namespace Mapper.Configuration.Builder
 {
     public interface IMappingBuilder<TSource, TDest>
     {
-        void ForMember<TProp>(Expression<Func<TDest, TProp>> destProp, Expression<Func<TDest, TProp>> sourceProp);
+        IMappingBuilder<TSource, TDest> ForMember<TProp>(Expression<Func<TDest, TProp>> destProp, Expression<Func<TSource, TProp>> sourceProp);
 
-        void ForMember<TProp>(Expression<Func<TDest, TProp>> destProp, Expression<Action<MappingOptions<TSource, TDest>>> options);
+        IMappingBuilder<TSource, TDest> ForMember<TProp>(Expression<Func<TDest, TProp>> destProp, Action<MappingOptions> options);
     }
 }

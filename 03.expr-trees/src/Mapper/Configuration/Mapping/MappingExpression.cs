@@ -8,9 +8,8 @@ namespace Mapper.Configuration.Mapping
 {
     internal static class MappingExpression<TSource, TDest>
     {
-        private static readonly IList<
-            (Func<TSource, object> Getter, Action<TDest, object> Setter)> GetterSetterPairs 
-            = new List<(Func<TSource, object> Getter, Action<TDest, object> Setter)>();
+        private static readonly IDictionary<string, (Func<TSource, object> Getter, Action<TDest, object> Setter)> 
+            DestNameGetterSetterPair = new Dictionary<string, (Func<TSource, object> Getter, Action<TDest, object> Setter)>();
 
         public static bool IsConfigured { get; private set; } = false;
 
@@ -33,16 +32,29 @@ namespace Mapper.Configuration.Mapping
 
                 if (destPropInfo != null)
                 {
-                    GetterSetterPairs.Add((GetPropGetter(sourcePropInfo), GetPropSetter(destPropInfo)));
+                    DestNameGetterSetterPair.Add(destPropInfo.Name, (GetPropGetter(sourcePropInfo), GetPropSetter(destPropInfo)));
                 }
             }
 
             IsConfigured = true;
         }
 
+        public static void ReplaceMappingSource(
+            MemberExpression destExpr,
+            MemberExpression sourceExpr)
+        {
+            DestNameGetterSetterPair[destExpr.Member.Name] =
+                (GetPropGetter((PropertyInfo)sourceExpr.Member), GetPropSetter((PropertyInfo)destExpr.Member));
+        }
+
+        public static void RemoveMapping(MemberExpression destExpr)
+        {
+            if (DestNameGetterSetterPair.Remove(destExpr.Member.Name)) ;
+        }
+
         public static void Apply(TSource source, TDest dest)
         {
-            foreach (var getSetPair in GetterSetterPairs)
+            foreach (var getSetPair in DestNameGetterSetterPair.Values)
             {
                 var value = getSetPair.Getter(source);
                 getSetPair.Setter(dest, value);

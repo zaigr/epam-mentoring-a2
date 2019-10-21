@@ -13,12 +13,9 @@ namespace Mapper.Tests.Unit.Plain
         [Fact]
         public void GivenTypes_WhenMappingNotConfigured_ThenExceptionRaised()
         {
-            // Arrange
-            var mapperFactory = new MapperFactory();
-
             // Act & Assert
             Assert.Throws<InvalidOperationException>(
-                () => mapperFactory.Create<Foo, Bar>());
+                () => _mapper.Map<Foo, Bar>(new Foo()));
         }
 
         [Theory]
@@ -53,7 +50,7 @@ namespace Mapper.Tests.Unit.Plain
         {
             var mapperFactory = new MapperFactory();
 
-            return mapperFactory.Create<Source, Dest>();
+            return mapperFactory.Create();
         }
     }
 }

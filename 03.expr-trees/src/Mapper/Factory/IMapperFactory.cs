@@ -2,6 +2,6 @@
 {
     public interface IMapperFactory
     {
-        IMapper Create<TSource, TDest>();
+        IMapper Create();
     }
 }
