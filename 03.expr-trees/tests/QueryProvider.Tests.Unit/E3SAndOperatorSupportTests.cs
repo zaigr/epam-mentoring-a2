@@ -12,6 +12,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using QueryProvider.Processing;
+using QueryProvider.Processing.Translator;
 
 namespace Expressions.Task3.E3SQueryProvider.Test
 {
@@ -21,7 +23,7 @@ namespace Expressions.Task3.E3SQueryProvider.Test
         [TestMethod]
         public void TestAndQueryable()
         {
-            var translator = new ExpressionToFTSRequestTranslator();
+            var translator = new ExpressionTranslator();
             Expression<Func<IQueryable<EmployeeEntity>, IQueryable<EmployeeEntity>>> expression
                 = query => query.Where(e => e.Workstation == "EPRUIZHW006" && e.Manager.StartsWith("John"));
             /*

@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace Expressions.Task3.E3SQueryProvider.Client
+namespace QueryProvider.Helpers
 {
     public static class HttpClientHelper
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Expressions.Task3.E3SQueryProvider.Helpers
+namespace QueryProvider.Helpers
 {
     internal static class TypeHelper
     {

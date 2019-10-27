@@ -1,13 +1,16 @@
-using Expressions.Task3.E3SQueryProvider.Client;
 using Expressions.Task3.E3SQueryProvider.Models.Entitites;
-using Expressions.Task3.E3SQueryProvider.QueryProvider;
-using Expressions.Task3.E3SQueryProvider.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using QueryProvider;
+using QueryProvider.Helpers;
+using QueryProvider.Processing.Generator;
+using QueryProvider.Processing.Translator;
+using QueryProvider.Provider;
+using QueryProvider.Services;
 
 namespace Expressions.Task3.E3SQueryProvider.Test
 {
@@ -29,7 +32,7 @@ namespace Expressions.Task3.E3SQueryProvider.Test
         private static readonly Lazy<E3SSearchService> searchService = new Lazy<E3SSearchService>(() =>
         {
             HttpClient httpClient = HttpClientHelper.CreateClient(User, Password);
-            return new E3SSearchService(httpClient, BaseUrl);
+            return new E3SSearchService(httpClient, new RequestGenerator(BaseUrl));
         });
 
         #region public tests
@@ -37,7 +40,7 @@ namespace Expressions.Task3.E3SQueryProvider.Test
         [TestMethod]
         public void WithoutProvider()
         {
-            IEnumerable<EmployeeEntity> res = searchService.Value.SearchFTS<EmployeeEntity>("workstation:(EPRUIZHW0249)", 0, 1);
+            IEnumerable<EmployeeEntity> res = searchService.Value.SearchFts<EmployeeEntity>("workstation:(EPRUIZHW0249)", 0, 1);
 
             foreach (var emp in res)
             {
@@ -48,7 +51,7 @@ namespace Expressions.Task3.E3SQueryProvider.Test
         [TestMethod]
         public void WithoutProviderNonGeneric()
         {
-            var res = searchService.Value.SearchFTS(typeof(EmployeeEntity), "workstation:(EPRUIZHW0249)", 0, 10);
+            var res = searchService.Value.SearchFts(typeof(EmployeeEntity), "workstation:(EPRUIZHW0249)", 0, 10);
 
             foreach (var emp in res.OfType<EmployeeEntity>())
             {
@@ -59,7 +62,8 @@ namespace Expressions.Task3.E3SQueryProvider.Test
         [TestMethod]
         public void WithProvider()
         {
-            var employees = new E3SEntitySet<EmployeeEntity>(searchService.Value);
+            var employees = new E3SQuery<EmployeeEntity>(
+                new E3SLinqProvider(searchService.Value, new ExpressionTranslator()));
 
             foreach (var emp in employees.Where(e => e.Workstation == "EPRUIZHW0249"))
             {

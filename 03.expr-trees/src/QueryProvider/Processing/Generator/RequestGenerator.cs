@@ -1,27 +1,22 @@
-﻿using Expressions.Task3.E3SQueryProvider.Attributes;
+﻿using System;
+using System.Collections.Generic;
+using Expressions.Task3.E3SQueryProvider.Attributes;
 using Expressions.Task3.E3SQueryProvider.Models.Request;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 
-namespace Expressions.Task3.E3SQueryProvider
+namespace QueryProvider.Processing.Generator
 {
-    public class FTSRequestGenerator
+    public class RequestGenerator : IRequestGenerator
     {
         private readonly string _FTSSearchTemplate = @"/searchFts";
+
         private readonly string _baseAddress;
 
-        #region Constructors
-        
-        public FTSRequestGenerator(string baseAddress)
+        public RequestGenerator(string baseAddress)
         {
             _baseAddress = baseAddress;
         }
-
-        #endregion
-
-        #region public methods
 
         public Uri GenerateRequestUrl<T>(string query = "*", int start = 0, int limit = 10)
         {
@@ -55,8 +50,6 @@ namespace Expressions.Task3.E3SQueryProvider
 
             return uri;
         }
-
-        #endregion
 
         private static Uri BindByName(string baseAddress, Dictionary<string, string> queryParams)
             => new Uri(QueryHelpers.AddQueryString(baseAddress, queryParams));
