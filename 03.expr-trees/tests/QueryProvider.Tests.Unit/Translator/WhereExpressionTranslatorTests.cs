@@ -82,7 +82,7 @@ namespace QueryProvider.Tests.Unit.Translator
         {
             var translator = new ExpressionTranslator();
             Expression<Func<IQueryable<EmployeeEntity>, IQueryable<EmployeeEntity>>> expression
-                = query => query.Where(e => e.Workstation.EndsWith("IZHW006"));
+                = query => query.Where(e => e.Workstation.Contains("IZHW006"));
 
             string translated = translator.Translate(expression);
             Assert.AreEqual("Workstation:(*IZHW006*)", translated);
