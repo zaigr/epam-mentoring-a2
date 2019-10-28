@@ -7,36 +7,36 @@
  * imply the following rules: https://kb.epam.com/display/EPME3SDEV/Telescope+public+REST+for+data#TelescopepublicRESTfordata-FTSRequestSyntax
  */
 
-using Expressions.Task3.E3SQueryProvider.Models.Entitites;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using QueryProvider.Processing;
+using Expressions.Task3.E3SQueryProvider.Models.Entitites;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QueryProvider.Processing.Translator;
 
-namespace Expressions.Task3.E3SQueryProvider.Test
+namespace QueryProvider.Tests.Unit
 {
     [TestClass]
-    public class E3SAndOperatorSupportTests
+    public class AndOperatorSupportTests
     {
         [TestMethod]
         public void TestAndQueryable()
         {
+            // Arrange
             var translator = new ExpressionTranslator();
             Expression<Func<IQueryable<EmployeeEntity>, IQueryable<EmployeeEntity>>> expression
                 = query => query.Where(e => e.Workstation == "EPRUIZHW006" && e.Manager.StartsWith("John"));
-            /*
-             * The expression above should be converted to the following FTSQueryRequest and then serialized inside FTSRequestGenerator:
-             * "statements": [
-                { "query":"Workstation:(EPRUIZHW006)"},
-                { "query":"Manager:(John*)"}
-                // Operator between queries is AND, in other words result set will fit to both statements above
-              ],
-             */
 
-            // todo: create asserts for this test by yourself, because they will depend on your final implementation
-            throw new NotImplementedException("Please implement this test and the appropriate functionality");
+            // Act
+            var result = translator.Translate(expression);
+
+            var lines = result.Split(Environment.NewLine);
+
+            // Assert
+            Assert.AreEqual(2, lines.Length);
+
+            Assert.AreEqual("Workstation:(EPRUIZHW006)", lines[0]);
+            Assert.AreEqual("Manager:(John*)", lines[1]);
         }
     }
 }

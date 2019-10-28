@@ -14,8 +14,14 @@ namespace QueryProvider.Processing.Translator.Internal
         private const string EndsWithExpressionTemplate = "{Parameter}:(*{Value})";
         private const string ContainsExpressionTemplate = "{Parameter}:(*{Value}*)";
 
-        private readonly IList<Type> _supportedTypes
+        private readonly IReadOnlyCollection<Type> _supportedTypes
             = new List<Type> { typeof(string) };
+
+        private readonly IReadOnlyCollection<ExpressionType> _supportedOperations
+            = new List<ExpressionType>
+            {
+                ExpressionType.Equal, ExpressionType.AndAlso,
+            };
 
         private readonly IDictionary<Type, string[]> _supportedMethods
             = new Dictionary<Type, string[]>
@@ -23,8 +29,8 @@ namespace QueryProvider.Processing.Translator.Internal
                 [typeof(string)] = new[] { "Equals", "Contains", "StartsWith", "EndsWith" }
             };
 
-        private readonly IDictionary<Type, IList<(string, string)>> _methodTemplates
-            = new Dictionary<Type, IList<(string, string)>>
+        private readonly IDictionary<Type, IReadOnlyCollection<(string, string)>> _methodTemplates
+            = new Dictionary<Type, IReadOnlyCollection<(string, string)>>
             {
                 [typeof(string)] = new[]
                 {
@@ -53,11 +59,12 @@ namespace QueryProvider.Processing.Translator.Internal
             {
                 case ExpressionType.Equal:
                 {
-                    _currentOperationTemplate = EqualsExpressionTemplate;
-                    Visit(node.Left);
-                    Visit(node.Right);
-
-                    _stringBuilder.Append(_currentOperationTemplate);
+                    EnsureEqualsExpressionValid(node);
+                    VisitEqualBinaryExpression(node);
+                } break;
+                case ExpressionType.AndAlso:
+                {
+                    VisitAndAlsoBinaryExpression(node);
                 } break;
                 default:
                 {
@@ -100,6 +107,24 @@ namespace QueryProvider.Processing.Translator.Internal
             return node;
         }
 
+        private void VisitEqualBinaryExpression(BinaryExpression node)
+        {
+            _currentOperationTemplate = EqualsExpressionTemplate;
+            Visit(node.Left);
+            Visit(node.Right);
+
+            _stringBuilder.Append(_currentOperationTemplate);
+        }
+
+        private void VisitAndAlsoBinaryExpression(BinaryExpression node)
+        {
+            Visit(node.Left);
+
+            _stringBuilder.Append(Environment.NewLine);
+
+            Visit(node.Right);
+        }
+
         private string GetMethodExpressionTemplate(MethodInfo methodInfo)
         {
             var methods = _methodTemplates[methodInfo.DeclaringType];
@@ -133,15 +158,9 @@ namespace QueryProvider.Processing.Translator.Internal
 
         private void EnsureBinaryExpressionValid(BinaryExpression exp)
         {
-            if (exp.NodeType != ExpressionType.Equal)
+            if (!_supportedOperations.Contains(exp.NodeType))
             {
-                throw new NotSupportedException("Only equal operation predicate supported.");
-            }
-
-            if (!(exp.Left.NodeType == ExpressionType.MemberAccess && exp.Right.NodeType == ExpressionType.Constant) &&
-                !(exp.Left.NodeType == ExpressionType.Constant && exp.Right.NodeType == ExpressionType.MemberAccess))
-            {
-                throw new NotSupportedException("Predicate should contain parameter and constant expression.");
+                throw new NotSupportedException($"Not supported expression type {exp.NodeType}.");
             }
         }
 
@@ -165,6 +184,15 @@ namespace QueryProvider.Processing.Translator.Internal
             if (!_supportedMethods[exp.Method.DeclaringType].Contains(exp.Method.Name))
             {
                 throw new NotSupportedException($"Method {exp.Method.Name} is not supported for type {exp.Method.DeclaringType}");
+            }
+        }
+
+        private void EnsureEqualsExpressionValid(BinaryExpression exp)
+        {
+            if (!(exp.Left.NodeType == ExpressionType.MemberAccess && exp.Right.NodeType == ExpressionType.Constant) &&
+                !(exp.Left.NodeType == ExpressionType.Constant && exp.Right.NodeType == ExpressionType.MemberAccess))
+            {
+                throw new NotSupportedException("Predicate should contain parameter and constant expression.");
             }
         }
     }
