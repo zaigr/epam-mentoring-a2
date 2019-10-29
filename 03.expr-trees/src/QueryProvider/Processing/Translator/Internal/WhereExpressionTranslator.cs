@@ -75,22 +75,6 @@ namespace QueryProvider.Processing.Translator.Internal
             return node;
         }
 
-        protected override Expression VisitConstant(ConstantExpression node)
-        {
-            _currentOperationTemplate = _currentOperationTemplate
-                .Replace("{Value}", node.Value.ToString());
-
-            return base.VisitConstant(node);
-        }
-
-        protected override Expression VisitMember(MemberExpression node)
-        {
-            _currentOperationTemplate = _currentOperationTemplate
-                .Replace("{Parameter}", node.Member.Name);
-
-            return base.VisitMember(node);
-        }
-
         protected override Expression VisitMethodCall(MethodCallExpression node)
         {
             _currentOperationTemplate = GetMethodExpressionTemplate(node.Method);
@@ -105,6 +89,22 @@ namespace QueryProvider.Processing.Translator.Internal
             _stringBuilder.Append(_currentOperationTemplate);
 
             return node;
+        }
+
+        protected override Expression VisitConstant(ConstantExpression node)
+        {
+            _currentOperationTemplate = _currentOperationTemplate
+                .Replace("{Value}", node.Value.ToString());
+
+            return base.VisitConstant(node);
+        }
+
+        protected override Expression VisitMember(MemberExpression node)
+        {
+            _currentOperationTemplate = _currentOperationTemplate
+                .Replace("{Parameter}", node.Member.Name);
+
+            return base.VisitMember(node);
         }
 
         private void VisitEqualBinaryExpression(BinaryExpression node)
@@ -141,7 +141,7 @@ namespace QueryProvider.Processing.Translator.Internal
             }
 
             var body = ((UnaryExpression)quote).Operand;
-            var predicate = ((LambdaExpression) body).Body;
+            var predicate = ((LambdaExpression)body).Body;
 
             switch (predicate)
             {
@@ -152,7 +152,7 @@ namespace QueryProvider.Processing.Translator.Internal
                     EnsureCallExpressionValid(callExp);
                     break;
                 default:
-                    throw new NotSupportedException("Provided type of expression is not supported.");
+                    throw new NotSupportedException($"'{predicate.NodeType}' expression is not supported.");
             }
         }
 
@@ -160,7 +160,7 @@ namespace QueryProvider.Processing.Translator.Internal
         {
             if (!_supportedOperations.Contains(exp.NodeType))
             {
-                throw new NotSupportedException($"Not supported expression type {exp.NodeType}.");
+                throw new NotSupportedException($"Not supported expression type '{exp.NodeType}'.");
             }
         }
 
@@ -178,12 +178,12 @@ namespace QueryProvider.Processing.Translator.Internal
 
             if (!_supportedTypes.Contains(exp.Method.DeclaringType))
             {
-                throw new NotSupportedException("Not supported parameter type.");
+                throw new NotSupportedException($"Not supported parameter type '{exp.Method.DeclaringType}'.");
             }
 
             if (!_supportedMethods[exp.Method.DeclaringType].Contains(exp.Method.Name))
             {
-                throw new NotSupportedException($"Method {exp.Method.Name} is not supported for type {exp.Method.DeclaringType}");
+                throw new NotSupportedException($"Method '{exp.Method.Name}' is not supported for type '{exp.Method.DeclaringType}'");
             }
         }
 

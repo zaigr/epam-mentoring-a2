@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using QueryProvider.Processing.Translator.Internal;
@@ -31,7 +32,7 @@ namespace QueryProvider.Processing.Translator
                 return node;
             }
 
-            return base.VisitMethodCall(node);
+            throw new NotSupportedException($"Method '{node.Method.Name}' is not supported.");
         }
 
         private bool IsWhere(MethodCallExpression node)
