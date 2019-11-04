@@ -6,6 +6,9 @@ using PowerManagement.PowerManagement.Types;
 
 namespace PowerManagement
 {
+    [ComVisible(true)]
+    [Guid("8F761549-F6BB-450D-BCBD-4D3A0B131DF5")]
+    [ClassInterface(ClassInterfaceType.None)]
     public class PowerManagementProvider : PowerManagementProviderBase, IPowerManagementProvider
     {
         public TimeSpan GetLastSleepTime()

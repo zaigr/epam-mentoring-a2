@@ -5,6 +5,9 @@ using PowerManagement.PowerManagement.Enums;
 
 namespace PowerManagement
 {
+    [ComVisible(true)]
+    [Guid("06BA1AB8-D0CD-4023-B69D-3174C80C5073")]
+    [ClassInterface(ClassInterfaceType.None)]
     public class SuspendManagementProvider : PowerManagementProviderBase, ISuspendManagementProvider
     {
         public void ReserveHibernationFile()
