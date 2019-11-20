@@ -5,7 +5,7 @@ using Client.Core.Monitoring.EventArgs;
 
 namespace Client.Core.Monitoring
 {
-    public interface IResourceMonitor
+    public interface IResourceMonitor : IDisposable
     {
         event EventHandler<ResourceAddedEventArgs> ResourceAdded;
 

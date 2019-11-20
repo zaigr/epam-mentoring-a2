@@ -1,6 +1,6 @@
 ﻿namespace Client.Core.Monitoring.EventArgs
 {
-    public class ResourceEventArgsBase
+    public class ResourceEventArgsBase : System.EventArgs
     {
         public string ResourceName { get; set; }
 
