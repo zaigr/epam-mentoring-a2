@@ -1,4 +1,4 @@
-﻿namespace Client.ScanService.Monitoring.EventArgs
+﻿namespace Client.Core.Monitoring.EventArgs
 {
     public class ResourceAddedEventArgs : ResourceEventArgsBase
     {

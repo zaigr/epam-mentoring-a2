@@ -7,6 +7,6 @@ namespace Client.Data
     {
         DbSet<Resource> Resources { get; set; }
 
-        void SaveChanges();
+        int SaveChanges();
     }
 }

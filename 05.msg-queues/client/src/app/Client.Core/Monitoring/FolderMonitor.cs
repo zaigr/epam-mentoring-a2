@@ -5,12 +5,12 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Client.Core.Monitoring.EventArgs;
 using Client.Data;
 using Client.Data.Entities;
-using Client.ScanService.Monitoring.EventArgs;
 using Serilog;
 
-namespace Client.ScanService.Monitoring
+namespace Client.Core.Monitoring
 {
     public class FolderMonitor : IResourceMonitor
     {
