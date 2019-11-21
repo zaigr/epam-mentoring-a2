@@ -1,4 +1,6 @@
-﻿namespace Client.ScanService.Configuration
+﻿using System;
+
+namespace Client.ScanService.Configuration
 {
     public class ServiceConfig
     {
@@ -10,5 +12,8 @@
 
         [AppSetting("monitoringFolderConfigFile")]
         public string MonitoringFoldersConfigFile { get; set; }
+
+        [AppSetting("folderScanFrequencySeconds")]
+        public int FolderScanFrequencySeconds { get; set; }
     }
 }

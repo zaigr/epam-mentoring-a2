@@ -11,6 +11,10 @@ namespace Client.ScanService
         {
 #if DEBUG
             ServiceLocator.Start();
+
+            Console.WriteLine("Press enter to exit...");
+            Console.ReadLine();
+
             return;
 #endif
 
