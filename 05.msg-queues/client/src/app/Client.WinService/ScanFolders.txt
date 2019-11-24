@@ -1,2 +1,1 @@
-﻿C:\Users\Ihar_Zakharau\Desktop\Projects\epam-mentoring-a2\05.msg-queues\client\src\app\Client.WinService\bin\Release\b
-C:\Users\Ihar_Zakharau\Desktop\Projects\epam-mentoring-a2\05.msg-queues\client\src\app\Client.WinService\bin\Debug\a
+﻿C:\Users\Ihar_Zakharau\Desktop\Projects\epam-mentoring-a2\05.msg-queues\client\src\app\Client.WinService\bin\Debug\a

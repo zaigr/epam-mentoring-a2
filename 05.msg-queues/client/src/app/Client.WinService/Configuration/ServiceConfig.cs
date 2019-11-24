@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace Client.ScanService.Configuration
+﻿namespace Client.ScanService.Configuration
 {
     public class ServiceConfig
     {
-        [AppSetting("messageMaxSizeKb")]
-        public int MessageMaxSize { get; set; }
+        [AppSetting("messageMaxSizeBytes")]
+        public int MessageMaxSizeBytes { get; set; }
 
         [AppSetting("logFilePath")]
         public string LogFilePath { get; set; }
@@ -15,5 +13,11 @@ namespace Client.ScanService.Configuration
 
         [AppSetting("folderScanFrequencySeconds")]
         public int FolderScanFrequencySeconds { get; set; }
+
+        [AppSetting("dataQueueConnectionString")]
+        public string DataQueueConnectionString { get; set; }
+
+        [AppSetting("dataQueueName")]
+        public string DataQueueName { get; set; }
     }
 }

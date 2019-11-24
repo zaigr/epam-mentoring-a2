@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Configuration;
 using System.Threading.Tasks;
+using Client.Core.Handling;
 using Client.Core.Monitoring;
 using Client.Data;
 using Client.Data.Configuration;
+using Client.MessageQueue.Builders;
+using Client.MessageQueue.Senders;
 using Client.ScanService.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,11 +44,22 @@ namespace Client.ScanService
                 provider =>
                 {
                     var monitor = new FolderMonitor(provider.GetService<IScanServiceContext>(), config.FolderScanFrequencySeconds);
-                    monitor.ResourceAdded += (sender, args) => Console.WriteLine($"{args.ResourcePath}\\{args.ResourceName} added.");
-                    monitor.ResourceChanged += (sender, args) => Console.WriteLine($"{args.ResourcePath}\\{args.ResourceName} changed.");
+
+                    var handlers = provider.GetServices<IResourceMonitorEventHandler>();
+                    foreach (var handler in handlers)
+                    {
+                        monitor.ResourceAdded += handler.ResourceAddedEventHandler;
+                        monitor.ResourceChanged += handler.ResourceChangedEventHandler;
+                    }
 
                     return monitor;
                 });
+
+            services.AddTransient<IResourceMonitorEventHandler, ResourceStreamingHandler>(
+                provider => new ResourceStreamingHandler(
+                    new MessageSequenceBuilder(),
+                    new ServiceBusQueueMessageSender(config.DataQueueConnectionString, config.DataQueueName),
+                    config.MessageMaxSizeBytes));
 
             return services.BuildServiceProvider();
         }
