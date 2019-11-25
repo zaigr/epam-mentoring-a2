@@ -27,6 +27,8 @@ namespace Service.MessageQueue.Extensions
             {
                 case MessageType.FileContentMessage:
                     return DeserializeMessage<FileContentMessage>(Encoding.UTF8.GetString(message.Body));
+                case MessageType.ClientAvailabilityMessage:
+                    return DeserializeMessage<ClientAvailabilityMessage>(Encoding.UTF8.GetString(message.Body));
                 default:
                     throw new InvalidOperationException($"Message type '{messageType}' could not be deserialized.");
             }

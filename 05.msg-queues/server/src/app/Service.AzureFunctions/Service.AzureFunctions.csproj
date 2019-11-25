@@ -24,7 +24,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\infrastructure\Service.Data.Configuration\Service.Data.Configuration.csproj" />
     <ProjectReference Include="..\..\libs\Service.MessageQueue\Service.MessageQueue.csproj" />
     <ProjectReference Include="..\..\libs\Service.Storage\Service.Storage.csproj" />
+    <ProjectReference Include="..\Service.Data\Service.Data.csproj" />
   </ItemGroup>
 </Project>

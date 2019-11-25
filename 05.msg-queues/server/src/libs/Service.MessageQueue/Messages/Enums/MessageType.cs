@@ -3,6 +3,7 @@
     public enum MessageType
     {
         FileContentMessage,
-        ClientConfigurationMessage
+        ClientConfigurationMessage,
+        ClientAvailabilityMessage
     }
 }

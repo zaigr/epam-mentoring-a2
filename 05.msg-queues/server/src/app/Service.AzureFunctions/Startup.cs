@@ -1,15 +1,18 @@
 ﻿using System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Service.AzureFunctions;
+using Service.AzureFunctions.AvailabilityService.MessageHandlers;
 using Service.AzureFunctions.ConfigurationService.Services;
 using Service.AzureFunctions.DataService.MessageHandlers;
-using Service.MessageQueue;
+using Service.Data;
+using Service.Data.Configuration;
 using Service.MessageQueue.Messages;
 using Service.MessageQueue.Processing;
 using Service.MessageQueue.Senders;
@@ -59,6 +62,9 @@ namespace Service.AzureFunctions
             services.AddLogging(loggingBuilder =>
                 loggingBuilder.AddSerilog(dispose: true));
 
+            services.AddDbContext<IAvailabilityServiceContext, AvailabilityServiceContext>(
+                options => options.UseSqlServer(_configuration.GetConnectionString("MonitoringDatabase")));
+
             services.AddTransient<IStorageClient, AzureStorageClient>(
                 provider => new AzureStorageClient(
                     _configuration.GetConnectionString("BlobStorage"),
@@ -74,6 +80,7 @@ namespace Service.AzureFunctions
             
             services.AddScoped<IMessageProcessor, MessageProcessor>();
             services.AddTransient<IMessageHandler<FileContentMessage>, FileContentMessageHandler>();
+            services.AddTransient<IMessageHandler<ClientAvailabilityMessage>, ClientAvailabilityMessageHandler>();
 
             return services.BuildServiceProvider();
         }

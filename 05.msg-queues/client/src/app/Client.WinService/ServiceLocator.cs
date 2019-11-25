@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Threading.Tasks;
 using Client.Core.Handling;
 using Client.Core.Monitoring;
 using Client.Data;
@@ -9,6 +8,7 @@ using Client.MessageQueue;
 using Client.MessageQueue.Builders;
 using Client.MessageQueue.Receivers;
 using Client.MessageQueue.Senders;
+using Client.ScanService.Availability;
 using Client.ScanService.Configuration;
 using Client.ScanService.Configuration.External;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +27,10 @@ namespace Client.ScanService
             RegisterExternalConfiguration(provider, config);
 
             var resourceMonitor = provider.GetService<IResourceMonitor>();
-            Task.WaitAll(
-                resourceMonitor.StartMonitoring(ServiceConfigManager.GetScanFoldersConfig(config)));
+            resourceMonitor.StartMonitoring(ServiceConfigManager.GetScanFoldersConfig(config));
+
+            var availabilityCheck = provider.GetService<IAvailabilityCheck>();
+            availabilityCheck.StartChecks();
         }
 
         private static IServiceProvider ConfigureServices(ServiceConfig config)
@@ -39,10 +41,7 @@ namespace Client.ScanService
             services.AddSingleton(config);
 
             services.AddDbContext<IScanServiceContext, ScanServiceContext>(
-                builder =>
-                {
-                    builder.UseSqlite(ConfigurationManager.ConnectionStrings["scan-service"].ConnectionString);
-                });
+                ConfigureDbContext);
 
             services.AddTransient<IResourceMonitor, FolderMonitor>(
                 provider =>
@@ -64,6 +63,15 @@ namespace Client.ScanService
                     new MessageSequenceBuilder(),
                     new ServiceBusQueueMessageSender(config.DataQueueConnectionString, config.DataQueueName),
                     () => config.MessageMaxSizeBytes));
+
+            services.AddTransient<IAvailabilityCheck>(
+                provider => new AvailabilityCheck(
+                    new ServiceBusQueueMessageSender(
+                        config.MonitoringQueueConnectionString,
+                        config.MonitoringQueueName),
+                    new ScanServiceContext(GetDbContextOptions()), 
+                    config.ClientId,
+                    config.AvailabilityCheckFrequencySeconds));
 
             services.AddTransient<IMessageReceiver>(
                 provider => new ServiceBusSubscriptionMessageReceiver(
@@ -92,6 +100,19 @@ namespace Client.ScanService
             var externalProvider = provider.GetService<IExternalConfigurationProvider>();
 
             externalProvider.SyncExternalConfiguration(config);
+        }
+
+        private static DbContextOptions GetDbContextOptions()
+        {
+            var builder = new DbContextOptionsBuilder();
+            ConfigureDbContext(builder);
+
+            return builder.Options;
+        }
+
+        private static void ConfigureDbContext(DbContextOptionsBuilder builder)
+        {
+            builder.UseSqlite(ConfigurationManager.ConnectionStrings["scan-service"].ConnectionString);
         }
     }
 }

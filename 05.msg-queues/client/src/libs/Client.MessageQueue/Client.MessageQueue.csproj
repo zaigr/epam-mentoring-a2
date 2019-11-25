@@ -142,7 +142,9 @@
     <Compile Include="IMessageReceiver.cs" />
     <Compile Include="IMessageSender.cs" />
     <Compile Include="Messages\Base\ContentMessageBase.cs" />
+    <Compile Include="Messages\ClientAvailabilityMessage.cs" />
     <Compile Include="Messages\ClientConfigurationMessage.cs" />
+    <Compile Include="Messages\Enums\ClientServiceStatus.cs" />
     <Compile Include="Messages\Enums\MessageType.cs" />
     <Compile Include="Messages\FileContentMessage.cs" />
     <Compile Include="Messages\Base\MessageBase.cs" />

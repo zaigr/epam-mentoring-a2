@@ -14,11 +14,23 @@
         [AppSetting("folderScanFrequencySeconds")]
         public int FolderScanFrequencySeconds { get; set; }
 
+        [AppSetting("availabilityCheckFrequencySeconds")]
+        public int AvailabilityCheckFrequencySeconds { get; set; }
+
+        [AppSetting("clientId")]
+        public string ClientId { get; set; }
+
         [AppSetting("dataQueueConnectionString")]
         public string DataQueueConnectionString { get; set; }
 
         [AppSetting("dataQueueName")]
         public string DataQueueName { get; set; }
+
+        [AppSetting("monitoringQueueConnectionString")]
+        public string MonitoringQueueConnectionString { get; set; }
+
+        [AppSetting("monitoringQueueName")]
+        public string MonitoringQueueName { get; set; }
 
         [AppSetting("configTopicConnectionString")]
         public string ConfigTopicConnectionString { get; set; }

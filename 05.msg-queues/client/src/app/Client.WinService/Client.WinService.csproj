@@ -172,6 +172,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Availability\AvailabilityCheck.cs" />
+    <Compile Include="Availability\IAvailabilityCheck.cs" />
     <Compile Include="Configuration\AppSettingAttribute.cs" />
     <Compile Include="Configuration\External\ExternalConfigurationProvider.cs" />
     <Compile Include="Configuration\External\IExternalConfigurationProvider.cs" />

@@ -8,12 +8,15 @@
     "ConfigurationTopicName": "configuration-topic",
     "MaxClientMessageSizeBytes": 250,
 
+    "MonitoringQueueName": "monitoring-queue",
     "DataQueueName": "data-queue",
     "BlobContainerName": "client-file"
   },
   "ConnectionStrings": {
     "DataQueue": "Endpoint=sb://etl-sb-poc.servicebus.windows.net/;SharedAccessKeyName=RootPolicy;SharedAccessKey=LziGOa7UMlgc8yqvATrIgfWQd7RnxUJ9Hb6zViMA33Q=",
+    "MonitoringQueue": "Endpoint=sb://etl-sb-poc.servicebus.windows.net/;SharedAccessKeyName=RootPolicy;SharedAccessKey=npqMtk/k46o/py498ozKbJwU16aniZ0NRBfNfjhia1c=",
     "ConfigurationTopic": "Endpoint=sb://etl-sb-poc.servicebus.windows.net/;SharedAccessKeyName=RootPolicy;SharedAccessKey=6U0k6rYLz6GqwxKFTFDmNPn4E8pgFSQIx1ljTTJ8oAI=",
-    "BlobStorage": "DefaultEndpointsProtocol=https;AccountName=datawharehouse;AccountKey=QRWsM7eNrHAeAjKcGM8mrlaCsVFhjoCimyp/4crRHcJB+h3dkwM6fyOTGWfcoO+aykzCfrRg6paxj54kICNYDg==;EndpointSuffix=core.windows.net"
+    "BlobStorage": "DefaultEndpointsProtocol=https;AccountName=datawharehouse;AccountKey=QRWsM7eNrHAeAjKcGM8mrlaCsVFhjoCimyp/4crRHcJB+h3dkwM6fyOTGWfcoO+aykzCfrRg6paxj54kICNYDg==;EndpointSuffix=core.windows.net",
+    "MonitoringDatabase": "Server=tcp:etl-monitoring-poc.database.windows.net,1433;Initial Catalog=monitoring;Persist Security Info=False;User ID=dbaadmin;Password=SQLServer2008;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   }
 }
