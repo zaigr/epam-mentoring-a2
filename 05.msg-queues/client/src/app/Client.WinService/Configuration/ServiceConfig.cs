@@ -19,5 +19,14 @@
 
         [AppSetting("dataQueueName")]
         public string DataQueueName { get; set; }
+
+        [AppSetting("configTopicConnectionString")]
+        public string ConfigTopicConnectionString { get; set; }
+
+        [AppSetting("configTopicName")]
+        public string ConfigTopicName { get; set; }
+
+        [AppSetting("configTopicSubscriptionName")]
+        public string ConfigTopicSubscriptionName { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.902
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.AzureFunctions", "src\app\Service.AzureFunctions\Service.AzureFunctions.csproj", "{F4BFB6D2-326C-487D-B83E-94F0023598CD}"
 EndProject
@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{E5FB0C7B-1C0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{0382126F-5047-4551-B2D0-BFECC75165E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Storage", "src\libs\Service.Storage\Service.Storage.csproj", "{434461F9-4B42-45A4-A2F4-6E3A32BA66B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Storage", "src\libs\Service.Storage\Service.Storage.csproj", "{434461F9-4B42-45A4-A2F4-6E3A32BA66B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.MessageQueue", "src\libs\Service.MessageQueue\Service.MessageQueue.csproj", "{018108A4-098C-4663-9F32-74425BCCC28B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.MessageQueue", "src\libs\Service.MessageQueue\Service.MessageQueue.csproj", "{018108A4-098C-4663-9F32-74425BCCC28B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

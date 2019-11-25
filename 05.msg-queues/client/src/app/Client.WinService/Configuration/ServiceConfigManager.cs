@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Client.ScanService.Configuration
@@ -18,6 +19,22 @@ namespace Client.ScanService.Configuration
             }
 
             return File.ReadAllLines(configFile);
+        }
+
+        public static void UpdateConfigSource<TProp>(
+            Expression<Func<ServiceConfig, TProp>> property,
+            TProp value)
+        {
+            EnsureIsMemberExpression(property.Body);
+
+            var appSettingAttribute = ((MemberExpression)property.Body).Member
+                .GetCustomAttribute<AppSettingAttribute>();
+
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings[appSettingAttribute.KeyName].Value = value.ToString();
+            config.Save(ConfigurationSaveMode.Modified);
+
+            ConfigurationManager.RefreshSection("appSettings");
         }
 
         public static ServiceConfig GetConfig()
@@ -48,6 +65,15 @@ namespace Client.ScanService.Configuration
             return typeof(ServiceConfig)
                 .GetProperties()
                 .Where(p => p.GetCustomAttribute<AppSettingAttribute>() != null);
+        }
+
+        private static void EnsureIsMemberExpression(Expression expr)
+        {
+            if (!(expr is MemberExpression memberExpression &&
+                  memberExpression.Member is PropertyInfo))
+            {
+                throw new ArgumentException($"{expr} should be member expression.");
+            }
         }
     }
 }

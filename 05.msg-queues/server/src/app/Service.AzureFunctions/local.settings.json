@@ -4,12 +4,16 @@
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
 
-    "DataQueueName": "data-queue",
+    "ConfigurationServiceTriggerTime": "0 */5 * * * *",
+    "ConfigurationTopicName": "configuration-topic",
+    "MaxClientMessageSizeBytes": 250,
 
+    "DataQueueName": "data-queue",
     "BlobContainerName": "client-file"
   },
   "ConnectionStrings": {
     "DataQueue": "Endpoint=sb://etl-sb-poc.servicebus.windows.net/;SharedAccessKeyName=RootPolicy;SharedAccessKey=LziGOa7UMlgc8yqvATrIgfWQd7RnxUJ9Hb6zViMA33Q=",
+    "ConfigurationTopic": "Endpoint=sb://etl-sb-poc.servicebus.windows.net/;SharedAccessKeyName=RootPolicy;SharedAccessKey=6U0k6rYLz6GqwxKFTFDmNPn4E8pgFSQIx1ljTTJ8oAI=",
     "BlobStorage": "DefaultEndpointsProtocol=https;AccountName=datawharehouse;AccountKey=QRWsM7eNrHAeAjKcGM8mrlaCsVFhjoCimyp/4crRHcJB+h3dkwM6fyOTGWfcoO+aykzCfrRg6paxj54kICNYDg==;EndpointSuffix=core.windows.net"
   }
 }

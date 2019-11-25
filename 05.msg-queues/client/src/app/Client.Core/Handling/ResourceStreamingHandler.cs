@@ -15,12 +15,12 @@ namespace Client.Core.Handling
 
         private readonly IMessageSender _messageSender;
 
-        private readonly int _messageSizeBytes;
+        private readonly Func<int> _messageSizeBytes;
 
         public ResourceStreamingHandler(
             IMessageSequenceBuilder messageSequenceBuilder,
             IMessageSender messageSender,
-            int messageSizeBytes)
+            Func<int> messageSizeBytes)
         {
             _messageSequenceBuilder = messageSequenceBuilder;
             _messageSender = messageSender;
@@ -62,7 +62,7 @@ namespace Client.Core.Handling
 
             using (var fileStream = File.OpenRead(fullPath))
             {
-                var messages = await _messageSequenceBuilder.CreateSequenceAsync<FileContentMessage>(fileStream, _messageSizeBytes);
+                var messages = await _messageSequenceBuilder.CreateSequenceAsync<FileContentMessage>(fileStream, _messageSizeBytes());
 
                 foreach (var message in messages)
                 {

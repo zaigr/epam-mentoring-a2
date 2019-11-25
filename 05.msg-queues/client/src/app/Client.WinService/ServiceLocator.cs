@@ -5,9 +5,12 @@ using Client.Core.Handling;
 using Client.Core.Monitoring;
 using Client.Data;
 using Client.Data.Configuration;
+using Client.MessageQueue;
 using Client.MessageQueue.Builders;
+using Client.MessageQueue.Receivers;
 using Client.MessageQueue.Senders;
 using Client.ScanService.Configuration;
+using Client.ScanService.Configuration.External;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -21,8 +24,9 @@ namespace Client.ScanService
             var config = ServiceConfigManager.GetConfig();
             var provider = ConfigureServices(config);
 
-            var resourceMonitor = provider.GetService<IResourceMonitor>();
+            RegisterExternalConfiguration(provider, config);
 
+            var resourceMonitor = provider.GetService<IResourceMonitor>();
             Task.WaitAll(
                 resourceMonitor.StartMonitoring(ServiceConfigManager.GetScanFoldersConfig(config)));
         }
@@ -59,7 +63,15 @@ namespace Client.ScanService
                 provider => new ResourceStreamingHandler(
                     new MessageSequenceBuilder(),
                     new ServiceBusQueueMessageSender(config.DataQueueConnectionString, config.DataQueueName),
-                    config.MessageMaxSizeBytes));
+                    () => config.MessageMaxSizeBytes));
+
+            services.AddTransient<IMessageReceiver>(
+                provider => new ServiceBusSubscriptionMessageReceiver(
+                    config.ConfigTopicConnectionString,
+                    config.ConfigTopicName,
+                    config.ConfigTopicSubscriptionName));
+
+            services.AddTransient<IExternalConfigurationProvider, ExternalConfigurationProvider>();
 
             return services.BuildServiceProvider();
         }
@@ -71,6 +83,15 @@ namespace Client.ScanService
                 .WriteTo.Console()
                 .WriteTo.File(logFilePath)
                 .CreateLogger();
+        }
+
+        private static void RegisterExternalConfiguration(
+            IServiceProvider provider,
+            ServiceConfig config)
+        {
+            var externalProvider = provider.GetService<IExternalConfigurationProvider>();
+
+            externalProvider.SyncExternalConfiguration(config);
         }
     }
 }

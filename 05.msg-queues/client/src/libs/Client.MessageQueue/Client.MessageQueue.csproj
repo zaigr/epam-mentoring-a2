@@ -138,12 +138,16 @@
   <ItemGroup>
     <Compile Include="Builders\IMessageSequenceBuilder.cs" />
     <Compile Include="Builders\MessageSequenceBuilder.cs" />
+    <Compile Include="Extensions\MessageExtensions.cs" />
+    <Compile Include="IMessageReceiver.cs" />
     <Compile Include="IMessageSender.cs" />
     <Compile Include="Messages\Base\ContentMessageBase.cs" />
+    <Compile Include="Messages\ClientConfigurationMessage.cs" />
     <Compile Include="Messages\Enums\MessageType.cs" />
     <Compile Include="Messages\FileContentMessage.cs" />
     <Compile Include="Messages\Base\MessageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Receivers\ServiceBusSubscriptionMessageReceiver.cs" />
     <Compile Include="Senders\ServiceBusQueueMessageSender.cs" />
   </ItemGroup>
   <ItemGroup>

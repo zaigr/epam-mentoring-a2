@@ -24,9 +24,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ConfigurationService\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\libs\Service.MessageQueue\Service.MessageQueue.csproj" />
     <ProjectReference Include="..\..\libs\Service.Storage\Service.Storage.csproj" />
   </ItemGroup>
